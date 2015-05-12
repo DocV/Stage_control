@@ -1,0 +1,66 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_control_test", "Stage_control\Stage_control.vcxproj", "{D609FFC8-4CEF-4611-B822-52742415C198}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C5CCC7B8-7EB1-4153-9E3A-86298C158C14} = {C5CCC7B8-7EB1-4153-9E3A-86298C158C14}
+		{AF8FC3CE-DD96-40C1-8449-447AC1A0E9E1} = {AF8FC3CE-DD96-40C1-8449-447AC1A0E9E1}
+		{24F350DC-6498-4DC6-9248-37B3EAAB63E9} = {24F350DC-6498-4DC6-9248-37B3EAAB63E9}
+		{93AACAFE-61D1-4A89-8273-1588CE8801A5} = {93AACAFE-61D1-4A89-8273-1588CE8801A5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_control_core", "Stage_control_core\Stage_control_core.vcxproj", "{AF8FC3CE-DD96-40C1-8449-447AC1A0E9E1}"
+	ProjectSection(ProjectDependencies) = postProject
+		{C5CCC7B8-7EB1-4153-9E3A-86298C158C14} = {C5CCC7B8-7EB1-4153-9E3A-86298C158C14}
+		{24F350DC-6498-4DC6-9248-37B3EAAB63E9} = {24F350DC-6498-4DC6-9248-37B3EAAB63E9}
+		{93AACAFE-61D1-4A89-8273-1588CE8801A5} = {93AACAFE-61D1-4A89-8273-1588CE8801A5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_control_scene", "Stage_control_scene\Stage_control_scene.vcxproj", "{C5CCC7B8-7EB1-4153-9E3A-86298C158C14}"
+	ProjectSection(ProjectDependencies) = postProject
+		{93AACAFE-61D1-4A89-8273-1588CE8801A5} = {93AACAFE-61D1-4A89-8273-1588CE8801A5}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_control_event", "Stage_control_event\Stage_control_event.vcxproj", "{93AACAFE-61D1-4A89-8273-1588CE8801A5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_common_graphics", "..\Stage_common\Stage_common_graphics\Stage_common_graphics.vcxproj", "{24F350DC-6498-4DC6-9248-37B3EAAB63E9}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_utilities", "..\Stage_common\Stage_common_utilities\Stage_utilities.vcxproj", "{FCA37AD3-F773-44C4-88B2-F7D20DF38DD3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D609FFC8-4CEF-4611-B822-52742415C198}.Debug|Win32.ActiveCfg = Debug|Win32
+		{D609FFC8-4CEF-4611-B822-52742415C198}.Debug|Win32.Build.0 = Debug|Win32
+		{D609FFC8-4CEF-4611-B822-52742415C198}.Release|Win32.ActiveCfg = Release|Win32
+		{D609FFC8-4CEF-4611-B822-52742415C198}.Release|Win32.Build.0 = Release|Win32
+		{AF8FC3CE-DD96-40C1-8449-447AC1A0E9E1}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AF8FC3CE-DD96-40C1-8449-447AC1A0E9E1}.Debug|Win32.Build.0 = Debug|Win32
+		{AF8FC3CE-DD96-40C1-8449-447AC1A0E9E1}.Release|Win32.ActiveCfg = Release|Win32
+		{AF8FC3CE-DD96-40C1-8449-447AC1A0E9E1}.Release|Win32.Build.0 = Release|Win32
+		{C5CCC7B8-7EB1-4153-9E3A-86298C158C14}.Debug|Win32.ActiveCfg = Debug|Win32
+		{C5CCC7B8-7EB1-4153-9E3A-86298C158C14}.Debug|Win32.Build.0 = Debug|Win32
+		{C5CCC7B8-7EB1-4153-9E3A-86298C158C14}.Release|Win32.ActiveCfg = Release|Win32
+		{C5CCC7B8-7EB1-4153-9E3A-86298C158C14}.Release|Win32.Build.0 = Release|Win32
+		{93AACAFE-61D1-4A89-8273-1588CE8801A5}.Debug|Win32.ActiveCfg = Debug|Win32
+		{93AACAFE-61D1-4A89-8273-1588CE8801A5}.Debug|Win32.Build.0 = Debug|Win32
+		{93AACAFE-61D1-4A89-8273-1588CE8801A5}.Release|Win32.ActiveCfg = Release|Win32
+		{93AACAFE-61D1-4A89-8273-1588CE8801A5}.Release|Win32.Build.0 = Release|Win32
+		{24F350DC-6498-4DC6-9248-37B3EAAB63E9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{24F350DC-6498-4DC6-9248-37B3EAAB63E9}.Debug|Win32.Build.0 = Debug|Win32
+		{24F350DC-6498-4DC6-9248-37B3EAAB63E9}.Release|Win32.ActiveCfg = Release|Win32
+		{24F350DC-6498-4DC6-9248-37B3EAAB63E9}.Release|Win32.Build.0 = Release|Win32
+		{FCA37AD3-F773-44C4-88B2-F7D20DF38DD3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FCA37AD3-F773-44C4-88B2-F7D20DF38DD3}.Debug|Win32.Build.0 = Debug|Win32
+		{FCA37AD3-F773-44C4-88B2-F7D20DF38DD3}.Release|Win32.ActiveCfg = Release|Win32
+		{FCA37AD3-F773-44C4-88B2-F7D20DF38DD3}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
