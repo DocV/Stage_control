@@ -132,27 +132,27 @@ int _tmain(int argc, _TCHAR* argv[])
 	GameObject& obj2 = scene.createObject();
 	GameObject& obj3 = scene.createObject();
 
-	Testprinter printer1(&obj1);
-	Testprinter printer2(&obj2);
-	Testprinter printer3(&obj3);
+	Testprinter* printer1 = new Testprinter(&obj1);
+	Testprinter* printer2 = new Testprinter(&obj2);
+	Testprinter* printer3 = new Testprinter(&obj3);
 
-	Transform tr1(&obj1);
-	Transform tr2(&obj2);
+	Transform* tr1 = new Transform(&obj1);
+	Transform* tr2 = new Transform(&obj2);
 	
-	Transform tr3(&obj3);
-	tr2.setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, -5)));
-	tr1.setMatrix(glm::mat4(1.0f));
-	tr3.setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-1, 0, -5)));
+	Transform* tr3 = new Transform(&obj3);
+	tr2->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, -5)));
+	tr1->setMatrix(glm::mat4(1.0f));
+	tr3->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-1, 0, -5)));
 
 	stage_common::SimpleShader ss;
 	stage_common::Model mod(vertices, 12, colors, &ss);
 
 	
 
-	ModelComponent m2(&obj2, &mod);
-	ModelComponent m3(&obj3, &mod);
-	Vibrate v2(&obj2);
-	Vibrate v3(&obj3);
+	ModelComponent* m2 = new ModelComponent(&obj2, &mod);
+	ModelComponent* m3 = new ModelComponent(&obj3, &mod);
+	Vibrate* v2 = new Vibrate(&obj2);
+	Vibrate* v3 = new Vibrate(&obj3);
 
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 	glm::mat4 View = glm::lookAt(
@@ -163,9 +163,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 
-	CameraComponent cam(&obj1, Projection, View);
+	CameraComponent* cam = new CameraComponent(&obj1, Projection, View);
 	loop.setActiveScene(&scene);
-	loop.setActiveCamera(&cam);
+	loop.setActiveCamera(cam);
 
 
 	loop.start();

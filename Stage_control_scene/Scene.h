@@ -10,6 +10,7 @@ namespace stage_control{
 	public:
 		Scene() : serial(0), objects(){
 		}
+		~Scene();
 
 		void update(int elapsedMS);
 		void render();

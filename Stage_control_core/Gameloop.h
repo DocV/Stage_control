@@ -21,6 +21,7 @@ namespace stage_control{
 		void setActiveScene(Scene* scene);
 		void setActiveCamera(CameraComponent* cam);
 		~Gameloop(){
+			if (SceneManager::getGlobalManager() == this) SceneManager::setGlobalManager(NULL);
 			delete gc;
 		}
 	private:

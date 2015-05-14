@@ -14,7 +14,7 @@ namespace stage_control{
 		void update(int elapsedMS);
 		void render();
 		Component* getComponentByID(int id);
-		
+		~GameObject();
 		int getID(){ return id; }
 	private:
 		unsigned int id;

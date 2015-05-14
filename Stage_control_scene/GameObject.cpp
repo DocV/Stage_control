@@ -26,3 +26,9 @@ Component* GameObject::getComponentByID(int id){
 void GameObject::addComponent(Component* comp){
 	components.push_back(comp);
 }
+
+GameObject::~GameObject(){
+	for (std::list<Component*>::iterator it = components.begin(); it != components.end(); it++){
+		delete *it;
+	}
+}

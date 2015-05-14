@@ -11,6 +11,7 @@ namespace stage_control{
 		Component(GameObject* owner) : owner(owner){
 			owner->addComponent(this);
 		}
+		~Component(){}
 		GameObject& getOwner(){ return *owner; }
 		virtual void update(int elapsedMS){}
 		virtual void render(){}

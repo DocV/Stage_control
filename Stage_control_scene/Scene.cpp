@@ -21,3 +21,9 @@ GameObject& Scene::createObject(){
 	objects.push_back(newObject);
 	return *newObject;
 }
+
+Scene::~Scene(){
+	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++){
+		delete *it;
+	}
+}

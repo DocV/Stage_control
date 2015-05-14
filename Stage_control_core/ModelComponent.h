@@ -19,12 +19,15 @@ namespace stage_control{
 			position = (Transform*)owner->getComponentByID(TRANSFORM_ID);
 			if (position == nullptr) abort();
 		}
+		~ModelComponent(){
+
+		}
 		virtual void render(){
 			stage_common::GraphicsController::getGlobalController()->queue(mod, position->getMatrix());
 		}
 		virtual int id(){ return MODEL_ID; }
 	private:
-		stage_common::Model* mod;
+		stage_common::Model* mod; //Jaettu useiden ModelComponent:ien kesken
 		Transform* position;
 	};
 }

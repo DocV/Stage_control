@@ -29,6 +29,7 @@ namespace stage_control {
 			activeScene->update(1);
 			activeScene->render();
 			gc->draw(*cam);
+			if (gc->stopLoop) abort = true;
 		}
 		shutdown();
 	}
