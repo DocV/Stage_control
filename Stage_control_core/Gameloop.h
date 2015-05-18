@@ -11,8 +11,18 @@ namespace stage_control{
 	class Gameloop : public SceneManager{
 	public:
 		Gameloop(std::string& windowName, int xres, int yres) : activeScene(nullptr){
-			SceneManager::setGlobalManager(this);
+			
 			gc = new stage_common::GraphicsController(windowName, xres, yres);
+			if (globalLogger != nullptr){
+				globalLogger->LogError("Error: global logger already set. Aborting.");
+				std::abort();
+			}
+			globalLogger = new stage_common::Logger(std::cout, std::cerr);
+			if (SceneManager::getGlobalManager() != nullptr){
+				globalLogger->LogError("Error: global scene manager already set. Aborting.");
+				std::abort();
+			}
+			SceneManager::setGlobalManager(this);
 		}
 		float getTimescale();
 		void setTimescale(float ts);
@@ -23,6 +33,7 @@ namespace stage_control{
 		~Gameloop(){
 			if (SceneManager::getGlobalManager() == this) SceneManager::setGlobalManager(NULL);
 			delete gc;
+			delete globalLogger;
 		}
 	private:
 		Scene* activeScene;

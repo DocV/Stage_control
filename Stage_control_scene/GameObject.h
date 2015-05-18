@@ -11,7 +11,7 @@ namespace stage_control{
 		friend class Scene;
 		friend class Component;
 	public:
-		void update(int elapsedMS);
+		void update(float elapsedMS);
 		void render();
 		Component* getComponentByID(int id);
 		~GameObject();

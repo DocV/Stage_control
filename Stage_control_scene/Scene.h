@@ -12,7 +12,7 @@ namespace stage_control{
 		}
 		~Scene();
 
-		void update(int elapsedMS);
+		void update(float elapsedMS);
 		void render();
 
 		GameObject& createObject();

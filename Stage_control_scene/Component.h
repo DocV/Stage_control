@@ -13,7 +13,7 @@ namespace stage_control{
 		}
 		~Component(){}
 		GameObject& getOwner(){ return *owner; }
-		virtual void update(int elapsedMS){}
+		virtual void update(float elapsedMS){}
 		virtual void render(){}
 		virtual int id() = 0;
 	private:

@@ -94,7 +94,7 @@ static std::vector<glm::vec3> colors = {
 class Testprinter : public Component {
 public:
 	Testprinter(GameObject* owner) : Component(owner){}
-	void update(int elapsedMS){
+	void update(float elapsedMS){
 		std::cout << "object " << getOwner().getID() << " updating after " << elapsedMS << " ms." << std::endl;
 	}
 	void render(){
@@ -109,7 +109,7 @@ public:
 	Vibrate(GameObject* owner) : Component(owner){
 		position = (Transform*)(owner->getComponentByID(TRANSFORM_ID));
 	}
-	void update(int elapsedMS){
+	void update(float elapsedMS){
 		float rand1 = (float)(std::rand() % 100) / 1000 - 0.05;
 		float rand2 = (float)(std::rand() % 100) / 1000 - 0.05;
 		float rand3 = (float)(std::rand() % 100) / 1000 - 0.05;
@@ -169,6 +169,9 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	loop.start();
+
+	char c;
+	std::cin >> c;
 
 	return 0;
 }

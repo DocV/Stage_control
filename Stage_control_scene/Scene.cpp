@@ -3,7 +3,7 @@
 
 using namespace stage_control;
 
-void Scene::update(int elapsedMS){
+void Scene::update(float elapsedMS){
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++){
 		(*it)->update(elapsedMS);
 	}

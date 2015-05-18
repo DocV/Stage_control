@@ -4,7 +4,7 @@
 
 using namespace stage_control;
 
-void GameObject::update(int elapsedMS){
+void GameObject::update(float elapsedMS){
 	for (std::list<Component*>::iterator it = components.begin(); it != components.end(); it++){
 		(*it)->update(elapsedMS);
 	}

@@ -4,14 +4,19 @@
 using namespace stage_control;
 
 SceneManager* SceneManager::globalManager = nullptr;
+stage_common::Logger* SceneManager::globalLogger = nullptr;
 
 void SceneManager::setGlobalManager(SceneManager* mgr){
 	globalManager = mgr;
 }
 
 SceneManager* SceneManager::getGlobalManager(){
-	if (globalManager == nullptr){
+	return globalManager;
+}
+
+stage_common::Logger& SceneManager::getGlobalLogger(){
+	if (globalLogger == nullptr){
 		abort();
 	}
-	return globalManager;
+	return *globalLogger;
 }
