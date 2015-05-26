@@ -6,7 +6,6 @@
 #include <Gameloop.h>
 #include <Component.h>
 #include <iostream>
-#include <Utilities.h>
 #include <glm\gtc\matrix_transform.hpp>
 #include <SimpleShader.h>
 #include <vector>
