@@ -8,60 +8,78 @@
 
 using namespace stage_control;
 
-namespace stage_control {
+Gameloop::Gameloop(std::string& windowName, int xres, int yres) : activeScene(nullptr){
 
-	float Gameloop::getTimescale() {
-		return timescale;
+	gc = new stage_common::GraphicsController(windowName, xres, yres);
+	if (globalLogger != nullptr){
+		globalLogger->LogError("Error: global logger already set. Aborting.");
+		std::abort();
 	}
-	void Gameloop::setTimescale(float ts) {
-		timescale = ts;
+	globalLogger = new stage_common::Logger(std::cout, std::cerr);
+	if (SceneManager::getGlobalManager() != nullptr){
+		globalLogger->LogError("Error: global scene manager already set. Aborting.");
+		std::abort();
 	}
-	void Gameloop::start() {
+	SceneManager::setGlobalManager(this);
+}
 
-		if (activeScene != nullptr && cam !=nullptr)
-			loop();
-	}
-	void Gameloop::stop(){
-		abort = true;
-	}
-	void Gameloop::loop() {
-		stage_common::Timer loopTimer;
-		stage_common::Timer upTimer;
-		stage_common::Timer rendTimer;
-		stage_common::Timer maintTimer;
+Gameloop::~Gameloop(){
+	if (SceneManager::getGlobalManager() == this) SceneManager::setGlobalManager(NULL);
+	delete gc;
+	delete globalLogger;
+}
 
-		while (!abort) {
-			loopTimer.start();
-			upTimer.start();
-			activeScene->update(loopTimer.lastTickTime());
-			upTimer.stop();
-			rendTimer.start();
-			activeScene->render();
-			gc->draw(*cam);
-			rendTimer.stop();
-			maintTimer.start();
-			if (gc->stopLoop) abort = true;
-			maintTimer.stop();
-			loopTimer.stop();
-		}
+float Gameloop::getTimescale() {
+	return timescale;
+}
+void Gameloop::setTimescale(float ts) {
+	timescale = ts;
+}
+void Gameloop::start() {
 
-		std::cout << "Total runtime: " << loopTimer.totalTime() << std::endl;
-		std::cout << "Total frames: " << loopTimer.totalTicks() << std::endl;
-		std::cout << "Average loop time: " << loopTimer.averageTime() << std::endl;
-		std::cout << "Average update time: " << upTimer.averageTime() << std::endl;
-		std::cout << "Average render time: " << rendTimer.averageTime() << std::endl;
-		std::cout << "Average maintenance time: " << maintTimer.averageTime() << std::endl;
-		shutdown();
-	}
-	void Gameloop::shutdown(){
-		std::cout << "shutting down";
-	}
+	if (activeScene != nullptr && cam !=nullptr)
+		loop();
+}
+void Gameloop::stop(){
+	abort = true;
+}
+void Gameloop::loop() {
+	stage_common::Timer loopTimer;
+	stage_common::Timer upTimer;
+	stage_common::Timer rendTimer;
+	stage_common::Timer maintTimer;
 
-	void Gameloop::setActiveScene(Scene* scene){
-		activeScene = scene;
+	while (!abort) {
+		loopTimer.start();
+		upTimer.start();
+		activeScene->update(loopTimer.lastTickTime());
+		upTimer.stop();
+		rendTimer.start();
+		activeScene->render();
+		gc->draw(*cam);
+		rendTimer.stop();
+		maintTimer.start();
+		if (gc->shouldStop()) abort = true;
+		maintTimer.stop();
+		loopTimer.stop();
 	}
 
-	void Gameloop::setActiveCamera(CameraComponent* cam){
-		this->cam = (cam->getRawCamera());
-	}
-};
+	std::cout << "Total runtime: " << loopTimer.totalTime() << std::endl;
+	std::cout << "Total frames: " << loopTimer.totalTicks() << std::endl;
+	std::cout << "Average loop time: " << loopTimer.averageTime() << std::endl;
+	std::cout << "Average update time: " << upTimer.averageTime() << std::endl;
+	std::cout << "Average render time: " << rendTimer.averageTime() << std::endl;
+	std::cout << "Average maintenance time: " << maintTimer.averageTime() << std::endl;
+	shutdown();
+}
+void Gameloop::shutdown(){
+	std::cout << "shutting down";
+}
+
+void Gameloop::setActiveScene(Scene* scene){
+	activeScene = scene;
+}
+
+void Gameloop::setActiveCamera(CameraComponent* cam){
+	this->cam = (cam->getRawCamera());
+}

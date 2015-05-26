@@ -145,7 +145,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	tr3->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-1, 0, -5)));
 
 	stage_common::SimpleShader ss;
-	stage_common::Model mod(vertices, 12, colors, &ss);
+	stage_common::Model mod(vertices, colors, &ss);
 
 	
 
