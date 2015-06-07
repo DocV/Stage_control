@@ -2,8 +2,24 @@
 #define EVENTCHANNEL_H
 
 #include "stdafx.h"
+#include "EventHandler.h"
+#include <list>
 
 namespace stage_control{
+
+	class EventChannel{
+	public:
+		void registerRecipient(EventHandler& recipient){
+			recipients.push_back(recipient);
+		}
+		void broadcast(const Event& e){
+			for (std::list<EventHandler&>::iterator i = recipients.begin(); i != recipients.end(); i++){
+				(*i).handleEvent(e);
+			}
+		}
+	private:
+		std::list<EventHandler&> recipients;
+	};
 
 }
 
