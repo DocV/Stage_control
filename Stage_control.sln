@@ -41,6 +41,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_control_demo", "Stage
 		{93AACAFE-61D1-4A89-8273-1588CE8801A5} = {93AACAFE-61D1-4A89-8273-1588CE8801A5}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_common_physics", "..\Stage_common\Stage_common_physics\Stage_common_physics.vcxproj", "{973E227A-88D7-4DCD-A648-6FA0723DEA58}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -75,6 +77,10 @@ Global
 		{52DAD0FA-CC0E-4A6E-8598-B7543392FA58}.Debug|Win32.Build.0 = Debug|Win32
 		{52DAD0FA-CC0E-4A6E-8598-B7543392FA58}.Release|Win32.ActiveCfg = Release|Win32
 		{52DAD0FA-CC0E-4A6E-8598-B7543392FA58}.Release|Win32.Build.0 = Release|Win32
+		{973E227A-88D7-4DCD-A648-6FA0723DEA58}.Debug|Win32.ActiveCfg = Debug|Win32
+		{973E227A-88D7-4DCD-A648-6FA0723DEA58}.Debug|Win32.Build.0 = Debug|Win32
+		{973E227A-88D7-4DCD-A648-6FA0723DEA58}.Release|Win32.ActiveCfg = Release|Win32
+		{973E227A-88D7-4DCD-A648-6FA0723DEA58}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

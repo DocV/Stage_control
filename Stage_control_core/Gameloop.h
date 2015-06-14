@@ -48,6 +48,8 @@ namespace stage_control{
 		*/
 		void setActiveCamera(CameraComponent* cam);
 
+		unsigned int getCurrentFrame();
+
 		/** Tuhoaa pelisilmukkaolion
 		*/
 		~Gameloop();
@@ -63,6 +65,8 @@ namespace stage_control{
 		/** Pelin aktiivinen kamera, eli se kamera, jonka kuvakulmasta pelimaailma näytetään
 		*/
 		stage_common::Camera* cam;
+
+		stage_common::Timer loopTimer;
 
 		/** Pelin aikaskaala, eli pelisimulaation suoritusnopeus
 		*/

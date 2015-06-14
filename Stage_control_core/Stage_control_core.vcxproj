@@ -40,7 +40,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_utilities;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_graphics;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_scene;$(IncludePath)</IncludePath>
+    <IncludePath>D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_event;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_physics;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_utilities;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_graphics;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_scene;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_common_graphics;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_scene;$(IncludePath)</IncludePath>
@@ -84,6 +84,7 @@
     <ClInclude Include="CameraComponent.h" />
     <ClInclude Include="Gameloop.h" />
     <ClInclude Include="ModelComponent.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

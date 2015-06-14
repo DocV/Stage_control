@@ -44,7 +44,6 @@ void Gameloop::stop(){
 	abort = true;
 }
 void Gameloop::loop() {
-	stage_common::Timer loopTimer;
 	stage_common::Timer upTimer;
 	stage_common::Timer rendTimer;
 	stage_common::Timer maintTimer;
@@ -82,4 +81,8 @@ void Gameloop::setActiveScene(Scene* scene){
 
 void Gameloop::setActiveCamera(CameraComponent* cam){
 	this->cam = (cam->getRawCamera());
+}
+
+unsigned int Gameloop::getCurrentFrame(){
+	return loopTimer.totalTicks();
 }

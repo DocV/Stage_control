@@ -6,7 +6,8 @@
 
 #include "stdafx.h"
 #include "Component.h"
-#include <glm\glm.hpp>
+#include <glm\glm.hpp>,
+#include <glm\gtx\matrix_decompose.hpp>
 
 namespace stage_control{
 	/** Peliolion sijaintia pelimaailmassa mallintava luokka
@@ -40,6 +41,15 @@ namespace stage_control{
 		*/
 		void setMatrix(glm::mat4& tr){
 			transform = tr;
+		}
+
+		glm::vec3 getPosition(){
+			glm::vec3 ret;
+			glm::vec3 dummy;
+			glm::quat dummy2;
+			glm::vec4 dummy3;
+			glm::decompose(transform, dummy, dummy2, ret, dummy, dummy3);
+			return ret;
 		}
 
 		/** Palauttaa sijaintikomponentin yksilöivän tunnusluvun

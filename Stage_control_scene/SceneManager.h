@@ -15,6 +15,8 @@ namespace stage_control{
 		*/
 		virtual void setActiveScene(Scene* scene) = 0;
 
+		virtual unsigned int getCurrentFrame() = 0;
+
 		/** Hakee osoittimen globaaliin alueita hallinnoivaan olioon
 		@returns	Osoitin globaaliin SceneManager-singletoniin
 		*/

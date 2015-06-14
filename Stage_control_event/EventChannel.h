@@ -1,3 +1,5 @@
+#pragma once
+
 #ifndef EVENTCHANNEL_H
 #define EVENTCHANNEL_H
 
@@ -9,6 +11,10 @@ namespace stage_control{
 
 	class EventChannel{
 	public:
+		EventChannel(){}
+		EventChannel(const EventChannel& other) = delete;
+		EventChannel& operator= (const EventChannel& other) = delete;
+
 		void registerRecipient(EventHandler& recipient){
 			recipients.push_back(recipient);
 		}
@@ -18,6 +24,7 @@ namespace stage_control{
 			}
 		}
 	private:
+		
 		std::list<EventHandler&> recipients;
 	};
 
