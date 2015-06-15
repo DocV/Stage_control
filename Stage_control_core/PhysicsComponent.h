@@ -24,11 +24,11 @@ namespace stage_control{
 			CollisionEvent(stage_common::Collider& coll, PhysicsComponent& sender) : collider(coll), sender(sender){}
 		};
 		
-		PhysicsComponent(GameObject* owner, float radius, glm::vec3 center): Component(owner){
+		PhysicsComponent(GameObject* owner, float radius, glm::vec3 center, glm::vec3 initialV): Component(owner), velocity(initialV){
 			collider = new stage_common::SphereCollider(radius, center);
 			setup(owner);
 		}
-		PhysicsComponent(GameObject* owner, glm::vec3 size, glm::vec3 center) : Component(owner){
+		PhysicsComponent(GameObject* owner, glm::vec3 size, glm::vec3 center, glm::vec3 initialV) : Component(owner), velocity(initialV){
 			collider = new stage_common::AABBCollider(size, center);
 			setup(owner);
 		}
@@ -39,6 +39,7 @@ namespace stage_control{
 			}
 			CollisionEvent ev(*collider, *this);
 			collisionChannel().broadcast(ev);
+			transform->translate(collider->center - oldPos);
 		}
 
 		void render(){
@@ -72,6 +73,7 @@ namespace stage_control{
 		stage_common::Collider* collider;
 		Transform* transform;
 		glm::vec3 velocity;
+		glm::vec3 oldPos;
 		float mass;
 		bool updatedThisFrame = false;
 
@@ -81,7 +83,8 @@ namespace stage_control{
 		}
 
 		void updatePosition(){
-			collider->center = transform->getPosition() + velocity;
+			oldPos = transform->getPosition();
+			collider->center = oldPos + velocity;
 			updatedThisFrame = true;
 		}
 		

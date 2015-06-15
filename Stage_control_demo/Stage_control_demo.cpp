@@ -153,7 +153,7 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	ModelComponent* m2 = new ModelComponent(&obj2, &mod);
-	ModelComponent* m3 = new ModelComponent(&obj3, &mod_plane);
+	ModelComponent* m3 = new ModelComponent(&obj3, &mod);
 	Vibrate* v2 = new Vibrate(&obj2);
 	Vibrate* v3 = new Vibrate(&obj3);
 

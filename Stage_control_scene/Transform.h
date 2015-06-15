@@ -6,7 +6,7 @@
 
 #include "stdafx.h"
 #include "Component.h"
-#include <glm\glm.hpp>,
+#include <glm\glm.hpp>
 #include <glm\gtx\matrix_decompose.hpp>
 
 namespace stage_control{
@@ -50,6 +50,10 @@ namespace stage_control{
 			glm::vec4 dummy3;
 			glm::decompose(transform, dummy, dummy2, ret, dummy, dummy3);
 			return ret;
+		}
+
+		void translate(glm::vec3 direction){
+			transform = glm::translate(transform, direction);
 		}
 
 		/** Palauttaa sijaintikomponentin yksilöivän tunnusluvun

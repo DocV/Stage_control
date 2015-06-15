@@ -5,6 +5,7 @@
 #include <Scene.h>
 #include <SceneManager.h>
 #include <GraphicsController.h>
+#include <Timer.h>
 #include "CameraComponent.h"
 
 namespace stage_control{
