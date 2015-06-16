@@ -5,7 +5,7 @@
 
 namespace stage_control{
 	struct Event{
-		virtual unsigned int getEventType() = 0;
+		virtual unsigned int getEventType() const = 0;
 	};
 }
 

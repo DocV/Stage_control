@@ -15,17 +15,22 @@ namespace stage_control{
 		EventChannel(const EventChannel& other) = delete;
 		EventChannel& operator= (const EventChannel& other) = delete;
 
-		void registerRecipient(EventHandler& recipient){
+		void registerRecipient(EventHandler* recipient){
 			recipients.push_back(recipient);
 		}
 		void broadcast(const Event& e){
-			for (std::list<EventHandler&>::iterator i = recipients.begin(); i != recipients.end(); i++){
-				(*i).handleEvent(e);
+			for (std::list<EventHandler*>::iterator i = recipients.begin(); i != recipients.end(); i++){
+				(*i)->handleEvent(e);
+			}
+		}
+		void broadcastOthers(const Event& e, EventHandler* sender){
+			for (std::list<EventHandler*>::iterator i = recipients.begin(); i != recipients.end(); i++){
+				if (sender != *i) (*i)->handleEvent(e);
 			}
 		}
 	private:
 		
-		std::list<EventHandler&> recipients;
+		std::list<EventHandler*> recipients;
 	};
 
 }

@@ -11,34 +11,41 @@
 
 #define PHYSICS_COLLISION_EVENT_TYPE 99001
 #define PHYSICS_COLLISION_BACKOFF_RESOLUTION 5
+#define PHYSICSCOMPONENT_ID 4
 
 namespace stage_control{
 	class PhysicsComponent : public Component, public EventHandler{
 	public:
 		struct CollisionEvent : public Event{
-			virtual unsigned int getEventType(){
+			virtual unsigned int getEventType() const {
 				return PHYSICS_COLLISION_EVENT_TYPE;
 			};
 			const stage_common::Collider& collider;
 			PhysicsComponent& sender;
-			CollisionEvent(stage_common::Collider& coll, PhysicsComponent& sender) : collider(coll), sender(sender){}
+			float elapsedMS;
+			CollisionEvent(stage_common::Collider& coll, PhysicsComponent& sender, float elapsedMS)
+				: collider(coll), sender(sender), elapsedMS(elapsedMS){}
 		};
 		
-		PhysicsComponent(GameObject* owner, float radius, glm::vec3 center, glm::vec3 initialV): Component(owner), velocity(initialV){
-			collider = new stage_common::SphereCollider(radius, center);
+		PhysicsComponent(GameObject* owner, float radius, glm::vec3 initialV, float mass):
+			Component(owner), velocity(initialV), mass(mass){
 			setup(owner);
+			collider = new stage_common::SphereCollider(radius, transform->getPosition());
+			
 		}
-		PhysicsComponent(GameObject* owner, glm::vec3 size, glm::vec3 center, glm::vec3 initialV) : Component(owner), velocity(initialV){
-			collider = new stage_common::AABBCollider(size, center);
+		PhysicsComponent(GameObject* owner, glm::vec3 size, glm::vec3 initialV, float mass) : 
+			Component(owner), velocity(initialV), mass(mass){
 			setup(owner);
+			collider = new stage_common::AABBCollider(size, transform->getPosition());
+			
 		}
 
 		void update(float elapsedMS){
 			if (!updatedThisFrame){
-				updatePosition();
+				updatePosition(elapsedMS);
 			}
-			CollisionEvent ev(*collider, *this);
-			collisionChannel().broadcast(ev);
+			CollisionEvent ev(*collider, *this, elapsedMS);
+			collisionChannel().broadcastOthers(ev, this);
 			transform->translate(collider->center - oldPos);
 		}
 
@@ -47,19 +54,20 @@ namespace stage_control{
 		}
 
 		void handleEvent(const Event& ev){
-			if (!updatedThisFrame){
-				updatePosition();
-			}
-			if (ev.getEventType != PHYSICS_COLLISION_EVENT_TYPE) return;
+			
+			if (ev.getEventType() != PHYSICS_COLLISION_EVENT_TYPE) return;
 			const CollisionEvent& coll = (const CollisionEvent&)ev;
+			if (!updatedThisFrame){
+				updatePosition(coll.elapsedMS);
+			}
 			if (!collider->checkCollision(coll.collider)) return;
 			glm::vec3 otherNewV = coll.sender.getVelocity();
-			stage_common::collisionVelocityChange(velocity, mass, otherNewV, coll.sender.getMass());
+			stage_common::Collisions::collisionVelocityChange(velocity, mass, otherNewV, coll.sender.getMass());
 			coll.sender.processCollision(*collider, otherNewV);
 		}
 
 		void processCollision(const stage_common::Collider& coll, glm::vec3 newV){
-			stage_common::backOff(*collider, velocity, coll, PHYSICS_COLLISION_BACKOFF_RESOLUTION);
+			stage_common::Collisions::backOff(*collider, velocity, coll, PHYSICS_COLLISION_BACKOFF_RESOLUTION);
 			velocity = newV;
 		}
 
@@ -68,6 +76,11 @@ namespace stage_control{
 
 		~PhysicsComponent(){
 			delete collider;
+			//TODO delete event channel entry
+		}
+
+		int id(){
+			return PHYSICSCOMPONENT_ID;
 		}
 	private:
 		stage_common::Collider* collider;
@@ -79,12 +92,12 @@ namespace stage_control{
 
 		void setup(GameObject* owner){
 			transform = (Transform*)(owner->getComponentByID(TRANSFORM_ID));
-			collisionChannel().registerRecipient(*this);
+			collisionChannel().registerRecipient(this);
 		}
 
-		void updatePosition(){
+		void updatePosition(float elapsedMS){
 			oldPos = transform->getPosition();
-			collider->center = oldPos + velocity;
+			collider->center = oldPos + (velocity * elapsedMS);
 			updatedThisFrame = true;
 		}
 		
