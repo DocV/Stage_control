@@ -29,7 +29,7 @@ namespace stage_control{
 		@param owner	Komponentin omistava peliolio
 		@param tr		Sijainti simulaation alussa
 		*/
-		Transform(GameObject* owner, glm::mat4& tr) : Component(owner), transform(tr){}
+		Transform(GameObject* owner, const glm::mat4& tr) : Component(owner), transform(tr){}
 
 		/** Palauttaa komponentin mallintamaa sijaintia kuvaavan 4x4-matriisin
 		@returns	4x4-matriisi, joka kertoo, missä pelimaailman pisteessä komponentin omistava peliolio on
@@ -39,17 +39,17 @@ namespace stage_control{
 		/** Asettaa komponentin mallintamaa sijaintia kuvaavan 4x4-matriisin
 		@returns	4x4-matriisi, joka kertoo, missä pelimaailman pisteessä komponentin omistava peliolio on
 		*/
-		void setMatrix(glm::mat4& tr){
+		void setMatrix(const glm::mat4& tr){
 			transform = tr;
 		}
 
 		glm::vec3 getPosition(){
-			glm::vec3 ret;
+			/*glm::vec3 ret;
 			glm::vec3 dummy;
 			glm::quat dummy2;
 			glm::vec4 dummy3;
-			glm::decompose(transform, dummy, dummy2, ret, dummy, dummy3);
-			return ret;
+			glm::decompose(transform, dummy, dummy2, ret, dummy, dummy3);*/
+			return glm::vec3(transform[3]);
 		}
 
 		void translate(glm::vec3 direction){

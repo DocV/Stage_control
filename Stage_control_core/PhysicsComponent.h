@@ -10,7 +10,6 @@
 #include <EventChannel.h>
 
 #define PHYSICS_COLLISION_EVENT_TYPE 99001
-#define PHYSICS_COLLISION_BACKOFF_RESOLUTION 5
 #define PHYSICSCOMPONENT_ID 4
 
 namespace stage_control{
@@ -67,7 +66,7 @@ namespace stage_control{
 		}
 
 		void processCollision(const stage_common::Collider& coll, glm::vec3 newV){
-			stage_common::Collisions::backOff(*collider, velocity, coll, PHYSICS_COLLISION_BACKOFF_RESOLUTION);
+			stage_common::Collisions::backOff(*collider, velocity, coll);
 			velocity = newV;
 		}
 
@@ -81,6 +80,11 @@ namespace stage_control{
 
 		int id(){
 			return PHYSICSCOMPONENT_ID;
+		}
+
+		static EventChannel& collisionChannel(){
+			static EventChannel cc;
+			return cc;
 		}
 	private:
 		stage_common::Collider* collider;
@@ -101,10 +105,6 @@ namespace stage_control{
 			updatedThisFrame = true;
 		}
 		
-		static EventChannel& collisionChannel(){
-			static EventChannel cc;
-			return cc;
-		}
 	};
 }
 

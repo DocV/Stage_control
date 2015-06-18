@@ -12,6 +12,7 @@
 #include "Sphere.h"
 #include "Plane.h"
 #include <PhysicsComponent.h>
+#include "GameObjectFactory.h"
 
 using namespace stage_control;
 
@@ -66,23 +67,28 @@ int _tmain(int argc, _TCHAR* argv[])
 	Transform* tr2 = new Transform(&obj2);
 
 	Transform* tr3 = new Transform(&obj3);
-	tr2->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, -5)));
+	tr2->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, -4)));
 	tr1->setMatrix(glm::mat4(1.0f));
-	tr3->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-1, 2, -5)));
+	tr3->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-1, 2, -6)));
 
 	stage_common::SimpleShader ss;
 	stage_common::Model mod(generate_sphere_vertices(), generate_sphere_colors(), &ss);
 	stage_common::Model mod_plane(generate_plane_vertices(), generate_plane_colors(), &ss);
 
+	glm::mat4 planepos;
+	planepos = glm::translate(glm::mat4(1.0f), glm::vec3(0, -2, -5));
+	//planepos *= glm::rotate(planepos, 45.0f, glm::vec3(0.0f, 1.0f, 0.0f));
+	planepos = glm::scale(planepos, glm::vec3(10, 0, 10));
 
+	GameObject& plane = GameObjectFactory::constructWall(&scene, planepos, glm::vec3(5, 0, 5));
 
 	ModelComponent* m2 = new ModelComponent(&obj2, &mod);
 	ModelComponent* m3 = new ModelComponent(&obj3, &mod);
 	//Vibrate* v2 = new Vibrate(&obj2);
 	//Vibrate* v3 = new Vibrate(&obj3);
 
-	PhysicsComponent* ph1 = new PhysicsComponent(&obj2, 1.0f, glm::vec3(-0.001f, 0, 0), 1.0f);
-	PhysicsComponent* ph2 = new PhysicsComponent(&obj3, 1.0f, glm::vec3(0.001f, -0.0005f, 0), 1.0f);
+	PhysicsComponent* ph1 = new PhysicsComponent(&obj2, 1.0f, glm::vec3(-0.001f, -0.0005f, 0), 1.0f);
+	PhysicsComponent* ph2 = new PhysicsComponent(&obj3, 1.0f, glm::vec3(0.00f, -0.0005f, 0), 1.0f);
 
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 	glm::mat4 View = glm::lookAt(
