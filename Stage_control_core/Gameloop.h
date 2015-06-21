@@ -69,6 +69,8 @@ namespace stage_control{
 
 		stage_common::Timer loopTimer;
 
+		bool resetMouse = false;
+
 		/** Pelin aikaskaala, eli pelisimulaation suoritusnopeus
 		*/
 		float timescale = 1;

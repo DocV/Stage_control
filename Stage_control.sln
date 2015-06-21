@@ -32,6 +32,9 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_common_graphics", "..\Stage_common\Stage_common_graphics\Stage_common_graphics.vcxproj", "{24F350DC-6498-4DC6-9248-37B3EAAB63E9}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_common_utilities", "..\Stage_common\Stage_common_utilities\Stage_utilities.vcxproj", "{FCA37AD3-F773-44C4-88B2-F7D20DF38DD3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{24F350DC-6498-4DC6-9248-37B3EAAB63E9} = {24F350DC-6498-4DC6-9248-37B3EAAB63E9}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Stage_control_demo", "Stage_control_demo\Stage_control_demo.vcxproj", "{52DAD0FA-CC0E-4A6E-8598-B7543392FA58}"
 	ProjectSection(ProjectDependencies) = postProject

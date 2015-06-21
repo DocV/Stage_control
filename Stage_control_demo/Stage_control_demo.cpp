@@ -13,6 +13,7 @@
 #include "Plane.h"
 #include <PhysicsComponent.h>
 #include "GameObjectFactory.h"
+#include "CameraControlComponent.h"
 
 using namespace stage_control;
 
@@ -100,6 +101,8 @@ int _tmain(int argc, _TCHAR* argv[])
 
 
 	CameraComponent* cam = new CameraComponent(&obj1, Projection, View);
+
+	CameraControlComponent* ccc = new CameraControlComponent(&obj1);
 	loop.setActiveScene(&scene);
 	loop.setActiveCamera(cam);
 

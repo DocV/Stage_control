@@ -5,6 +5,7 @@
 #include <string>
 #include "Gameloop.h"
 #include <Timer.h>
+#include <Input.h>
 
 using namespace stage_control;
 
@@ -59,6 +60,7 @@ void Gameloop::loop() {
 		rendTimer.stop();
 		maintTimer.start();
 		if (gc->shouldStop()) abort = true;
+		stage_common::Input::getSingleton().update(resetMouse);
 		maintTimer.stop();
 		loopTimer.stop();
 	}
