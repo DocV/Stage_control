@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include "SceneManager.h"
 
 using namespace stage_control;
@@ -20,3 +20,4 @@ stage_common::Logger& SceneManager::getGlobalLogger(){
 	}
 	return *globalLogger;
 }
+

@@ -1,4 +1,4 @@
-#ifndef SCENEMANAGER_H
+﻿#ifndef SCENEMANAGER_H
 #define SCENEMANAGER_H
 
 #include "stdafx.h"
@@ -26,6 +26,10 @@ namespace stage_control{
 		@returns	Viite globaaliin Logger-singletoniin
 		*/
 		static stage_common::Logger& getGlobalLogger();
+
+		/** Pysäyttää ohjelman suorituksen
+		*/
+		virtual void stop() = 0;
 	protected:
 		/** Asettaa globaalin pelialueidenhallintaolion arvon
 		@param mgr	Osoitin globaaliin SceneManager-singletoniin

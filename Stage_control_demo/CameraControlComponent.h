@@ -7,11 +7,13 @@
 
 #define CAMERACONTROLCOMPONENT_ID 6
 #define CAMERASPEED 0.025f
+#define MOUSESPEED 0.01f
 
 #include <Component.h>
 #include <Transform.h>
 #include <Input.h>
 #include <GLFW\glfw3.h>
+#include <SceneManager.h>
 
 namespace stage_control{
 	class CameraControlComponent : public Component{
@@ -25,18 +27,30 @@ namespace stage_control{
 			in.registerKey(GLFW_KEY_D);
 			in.registerKey(GLFW_KEY_R);
 			in.registerKey(GLFW_KEY_F);
+			in.registerKey(GLFW_KEY_ESCAPE);
 		}
 
 		void update(float elapsedMS){
-			glm::vec3 movement(0,0,0);
 			stage_common::Input& in = stage_common::Input::getSingleton();
-			if (in.getKeyDown(GLFW_KEY_W)) movement.z += CAMERASPEED * elapsedMS;
-			if (in.getKeyDown(GLFW_KEY_S)) movement.z -= CAMERASPEED * elapsedMS;
-			if (in.getKeyDown(GLFW_KEY_A)) movement.x += CAMERASPEED * elapsedMS;
-			if (in.getKeyDown(GLFW_KEY_D)) movement.x -= CAMERASPEED * elapsedMS;
-			if (in.getKeyDown(GLFW_KEY_F)) movement.y += CAMERASPEED * elapsedMS;
-			if (in.getKeyDown(GLFW_KEY_R)) movement.y -= CAMERASPEED * elapsedMS;
+
+			double horAngle = (in.getCursorX() - 0.5f) * MOUSESPEED * elapsedMS;
+			double verAngle = (in.getCursorY() - 0.5f) * MOUSESPEED * elapsedMS;
+
+			glm::quat rotation(glm::vec3(verAngle, horAngle, 0));
+
+			glm::mat4 transform = tr->getMatrix();
+
+			glm::vec3 movement(0,0,0);
+			
+			if (in.getKeyDown(GLFW_KEY_W)) movement += glm::vec3(transform[2]) * CAMERASPEED * elapsedMS;
+			if (in.getKeyDown(GLFW_KEY_S)) movement -= glm::vec3(transform[2]) * CAMERASPEED  * elapsedMS;
+			if (in.getKeyDown(GLFW_KEY_A)) movement += glm::vec3(transform[0]) * CAMERASPEED  * elapsedMS;
+			if (in.getKeyDown(GLFW_KEY_D)) movement -= glm::vec3(transform[0]) * CAMERASPEED  * elapsedMS;
+			if (in.getKeyDown(GLFW_KEY_F)) movement += glm::vec3(transform[1]) * CAMERASPEED  * elapsedMS;
+			if (in.getKeyDown(GLFW_KEY_R)) movement -= glm::vec3(transform[1]) * CAMERASPEED  * elapsedMS;
 			tr->translate(movement);
+
+			if (in.getKeyDown(GLFW_KEY_ESCAPE)) SceneManager::getGlobalManager()->stop();
 		}
 
 		int id(){
