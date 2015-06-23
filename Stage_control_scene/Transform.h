@@ -44,11 +44,6 @@ namespace stage_control{
 		}
 
 		glm::vec3 getPosition(){
-			/*glm::vec3 ret;
-			glm::vec3 dummy;
-			glm::quat dummy2;
-			glm::vec4 dummy3;
-			glm::decompose(transform, dummy, dummy2, ret, dummy, dummy3);*/
 			return glm::vec3(transform[3]);
 		}
 

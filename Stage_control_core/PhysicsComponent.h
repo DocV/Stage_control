@@ -66,7 +66,7 @@ namespace stage_control{
 		}
 
 		void processCollision(const stage_common::Collider& coll, glm::vec3 newV){
-			stage_common::Collisions::backOff(*collider, velocity, coll);
+			stage_common::Collisions::backOff(*collider, -1.0f * newV, coll);
 			velocity = newV;
 		}
 
