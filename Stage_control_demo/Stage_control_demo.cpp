@@ -14,31 +14,59 @@
 #include <PhysicsComponent.h>
 #include "GameObjectFactory.h"
 #include "CameraControlComponent.h"
+#include <fstream>
 
 using namespace stage_control;
-
-#define SCALE 25
-#define SPHERES 100
 
 
 int _tmain(int argc, _TCHAR* argv[])
 {
+	int SCALE = 10;
+	int SPHERES = 5;
+	std::string configfile;
+	std::ifstream configStream("config.ini", std::ios::in);
+
+	if (configStream.is_open())
+	{
+		std::string line = "";
+		std::string start, end;
+		int delimiterPos;
+		while (getline(configStream, line)){
+			delimiterPos = line.find("=");
+			if (delimiterPos == std::string::npos){
+				std::cerr << "Invalid configuration parameter " << start << std::endl;
+				continue;
+			}
+			start = line.substr(0, delimiterPos);
+			end = line.substr(delimiterPos+1);
+			if (start == "SCALE"){
+				try{
+					SCALE = std::stoi(end);
+					if (SCALE < 5) SCALE = 5;
+				}
+				catch(...){
+					std::cerr << "Error parsing configuration parameter SCALE" << std::endl;
+					continue;
+				}
+			}
+			else if (start == "SPHERES"){
+				try{
+					SPHERES = std::stoi(end);
+					if (SPHERES < 1) SPHERES = 1;
+				}
+				catch (...){
+					std::cerr << "Error parsing configuration parameter SCALE" << std::endl;
+					continue;
+				}
+			}
+			else std::cerr << "Unknown configuration parameter " << start << std::endl;
+		}
+		configStream.close();
+	}
+	else std::cerr << "Warning: config.ini not found, falling back to default parameters" << std::endl;
+
 	Gameloop loop(std::string("Stage control engine demo"), 640, 480);
 	Scene scene;
-	GameObject& obj1 = scene.createObject();
-	//GameObject& obj2 = scene.createObject();
-	//GameObject& obj3 = scene.createObject();
-	
-	Transform* tr1 = new Transform(&obj1);
-	//Transform* tr2 = new Transform(&obj2);
-	//Transform* tr3 = new Transform(&obj3);
-	//tr2->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(2, 0, -0)));
-	tr1->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -SCALE * 2)));
-	//tr3->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(-1, 2, -0)));
-
-	/*stage_common::SimpleShader ss;
-	stage_common::Model mod(generate_sphere_vertices(), generate_sphere_colors(), &ss);
-	stage_common::Model mod_plane(generate_plane_vertices(), generate_plane_colors(), &ss);*/
 	
 	glm::mat4 bottompos;
 	bottompos = glm::scale(bottompos, glm::vec3(SCALE, 1, SCALE));
@@ -79,11 +107,11 @@ int _tmain(int argc, _TCHAR* argv[])
 		GameObject& sphere = GameObjectFactory::constructRandomSphere(&scene, glm::vec3(SCALE - 1, SCALE - 1, SCALE - 1));
 	}
 
-	/*ModelComponent* m2 = new ModelComponent(&obj2, &mod);
-	ModelComponent* m3 = new ModelComponent(&obj3, &mod);
 
-	PhysicsComponent* ph1 = new PhysicsComponent(&obj2, 1.0f, glm::vec3(-0.001f, -0.0005f, 0), 1.0f);
-	PhysicsComponent* ph2 = new PhysicsComponent(&obj3, 1.0f, glm::vec3(0.00f, -0.0005f, 0), 1.0f);*/
+	GameObject& camera = scene.createObject();
+
+	Transform* camPos = new Transform(&camera);
+	camPos->setMatrix(glm::translate(glm::mat4(1.0f), glm::vec3(0, 0, -SCALE * 2)));
 
 	glm::mat4 Projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, SCALE * 10.0f);
 	glm::mat4 View = glm::lookAt(
@@ -92,11 +120,9 @@ int _tmain(int argc, _TCHAR* argv[])
 		glm::vec3(0, 1, 0)  
 	);
 
+	CameraComponent* cam = new CameraComponent(&camera, Projection, View);
+	CameraControlComponent* ccc = new CameraControlComponent(&camera);
 
-
-	CameraComponent* cam = new CameraComponent(&obj1, Projection, View);
-
-	CameraControlComponent* ccc = new CameraControlComponent(&obj1);
 	loop.setActiveScene(&scene);
 	loop.setActiveCamera(cam);
 
