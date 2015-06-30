@@ -35,7 +35,7 @@ namespace stage_control{
 		}
 
 		int id(){
-			return PHYSICSCOMPONENT_ID;
+			return STATICGEOMETRYCOMPONENT_ID;
 		}
 
 		~StaticGeometryComponent(){
