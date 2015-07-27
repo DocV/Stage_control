@@ -45,6 +45,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_utilities;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_physics;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_common\Stage_common_graphics;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_scene;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_event;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_core;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -53,7 +54,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Stage_control_event;D:\glfw\glfw-3.1.bin.WIN32\include;D:\glew\glew-1.12.0\include;D:\glm\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\glm\glm;D:\glew\glew-1.12.0\include;D:\glfw\glfw-3.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -70,12 +71,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>D:\glm\glm;D:\glew\glew-1.12.0\include;D:\glfw\glfw-3.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Release\Stage_common_graphics.lib;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Release\Stage_common_utilities.lib;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Release\Stage_common_physics.lib;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Release\Stage_control_core.lib;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Release\Stage_control_event.lib;D:\Libraries\New folder\Visual Studio 2013\Projects\Stage_control\Release\Stage_control_scene.lib;D:\glew\glew-1.12.0\lib\Release\Win32\glew32s.lib;D:\glfw\glfw-3.1.bin.WIN32\lib-vc2013\glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

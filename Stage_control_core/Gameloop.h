@@ -67,8 +67,12 @@ namespace stage_control{
 		*/
 		stage_common::Camera* cam;
 
+		/** Pelisilmukan suoritusaikaa mittaava ajastin
+		*/
 		stage_common::Timer loopTimer;
 
+		/** Lukitaanko hiiri keskelle kuvaruutua?
+		*/
 		bool resetMouse = false;
 
 		/** Pelin aikaskaala, eli pelisimulaation suoritusnopeus
