@@ -123,34 +123,64 @@ namespace stage_control{
 		*/
 		float getMass(){ return mass; }
 
-		/**
+		/**Tuhoaa fysiikkakomponentin
 		*/
 		~PhysicsComponent(){
 			delete collider;
 			//TODO delete event channel entry
 		}
 
+		/** Palauttaa fysiikkakomponentin komponenttitunnuksen
+		@returns	Komponentin komponenttitunnus
+		*/
 		int id(){
 			return PHYSICSCOMPONENT_ID;
 		}
 
+		/** Hakee viitteen fysiikkamoottorin törmäystestien tapahtumakanavaan
+		@returns	Viite tapahtumakanavaan
+		*/
 		static EventChannel& collisionChannel(){
+			//Staattinen kanava-singleton, jaettu kaikkien fysiikkakomponenttien kesken
 			static EventChannel cc;
 			return cc;
 		}
 	private:
+		/** Tämän peliolion törmäyshahmo
+		*/
 		stage_common::Collider* collider;
+
+		/** Osoitin tämän komponentin omistajaolion pelimaailmasijaintia ylläpitävään komponenttiin
+		*/
 		Transform* transform;
+
+		/** Tämän fysiikkaolion liikesuunta ja nopeus
+		*/
 		glm::vec3 velocity;
+
+		/** Tämän fysiikkaolion liikesuunta ja nopeus nykyisen ruudunpäivityksen alussa
+		*/
 		glm::vec3 oldPos;
+
+		/** Tämän fysiikkaolion massa
+		*/
 		float mass;
+
+		/** Ilmoittaa, onko tämän peliolion tila jo päivitetty tämän ruudunpäivityksen aikana
+		*/
 		bool updatedThisFrame = false;
 
+		/** Kaikille konstruktoreille yhteinen apumetodi, joka alustaa peliolion tilan
+		@param owner	Tämän komponentin omistava peliolio
+		*/
 		void setup(GameObject* owner){
 			transform = (Transform*)(owner->getComponentByID(TRANSFORM_ID));
 			collisionChannel().registerRecipient(this);
 		}
 
+		/** Päivittää fysiikkaolion sijainnin pelimaailmassa olion nopeuden perusteella
+		@param elapsedMS	Edellisestä ruudunpäivityksestä kulunut aika
+		*/
 		void updatePosition(float elapsedMS){
 			oldPos = transform->getPosition();
 			collider->center = oldPos + (velocity * elapsedMS);

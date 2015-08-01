@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "stdafx.h"
 #include <iostream>
@@ -51,13 +51,16 @@ void Gameloop::loop() {
 
 	while (!abort) {
 		loopTimer.start();
+		//Päivitysvaihe
 		upTimer.start();
 		activeScene->update(loopTimer.lastTickTime());
 		upTimer.stop();
+		//Piirtovaihe
 		rendTimer.start();
 		activeScene->render();
 		gc->draw(*cam);
 		rendTimer.stop();
+		//Ylläpitovaihe
 		maintTimer.start();
 		if (gc->shouldStop()) abort = true;
 		stage_common::Input::getSingleton().update(resetMouse);

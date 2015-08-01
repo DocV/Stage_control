@@ -49,6 +49,9 @@ namespace stage_control{
 		*/
 		void setActiveCamera(CameraComponent* cam);
 
+		/** Palauttaa pelimoottorin käynnistämisestä kuluneiden ruudunpäivitysten määrän
+		@returns	Pelimoottorin käynnistämisestä kuluneiden ruudunpäivitysten määrä
+		*/
 		unsigned int getCurrentFrame();
 
 		/** Tuhoaa pelisilmukkaolion
