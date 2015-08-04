@@ -1,11 +1,16 @@
-#ifndef SPHERE_H
+﻿#ifndef SPHERE_H
 #define SPHERE_H
 
 #include "stdafx.h"
 #include <vector>
 #include <glm\glm.hpp>
 
+/*Sisältää palloa approksimoivan 3D-mallin datan
+*/
+
 namespace stage_control{
+	/** Pallon verteksit
+	*/
 	static std::vector<glm::vec3> sphere_vertices = { 
 		glm::vec3(0.000000, -1.000000, 0.000000),
 		glm::vec3(0.723607, -0.447220, 0.525725),
@@ -51,6 +56,9 @@ namespace stage_control{
 		glm::vec3(0.162456, 0.850654, -0.499995)
 	};
 
+	/** Pallon tahkot
+	Jokainen kolmen numeron sarja määrittelee yhden kolmion, jonka kärjet ovat numeroiden ilmaisemat verteksit
+	*/
 	static std::vector<int> sphere_faces = { 
 		1, 14, 13,
 		2, 14, 16,
@@ -134,6 +142,9 @@ namespace stage_control{
 		14, 2, 15
 	};
 
+	/** Yhdistää tahkot ja verteksit yhtenäiseksi verteksilistaksi
+	@returns	Palloa kuvaavan 3D-mallin verteksit
+	*/
 	static std::vector<glm::vec3> generate_sphere_vertices(){
 		std::vector<glm::vec3> ret;
 		for (unsigned int i = 0; i < sphere_faces.size(); i++){
@@ -142,6 +153,9 @@ namespace stage_control{
 		return ret;
 	}
 
+	/** Arpoo vertekseille väriarvot
+	@returns	Litteää pintaa kuvaavan 3D-mallin värit
+	*/
 	static std::vector<glm::vec3> generate_sphere_colors(){
 		std::vector<glm::vec3> ret;
 		for (unsigned int i = 0; i < sphere_faces.size(); i++){

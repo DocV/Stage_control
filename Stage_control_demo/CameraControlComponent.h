@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include "stdafx.h"
 
@@ -16,10 +16,17 @@
 #include <glm\gtx\quaternion.hpp>
 
 namespace stage_control{
+	/** Peliolioon liitettävä komponentti, joka mahdollistaa peliolion liikuttamisen näppäimistöllä.
+	Suunniteltu kameran liikuttamiseen
+	*/
 	class CameraControlComponent : public Component{
 	public:
+		/** Luo uuden ohjauskomponentin
+		@param owner	Komponentin omistava olio
+		*/
 		CameraControlComponent(GameObject* owner) : Component(owner){
 			tr = (Transform*)(owner->getComponentByID(TRANSFORM_ID));
+			//Rekisteröidään tarkkailtavat näppäimet
 			stage_common::Input& in = stage_common::Input::getSingleton();
 			in.registerKey(GLFW_KEY_W);
 			in.registerKey(GLFW_KEY_S);
@@ -31,27 +38,37 @@ namespace stage_control{
 
 		}
 
+		/** Päivittää komponentin tilan
+		@param elapsedMS	Edellisestä ruudunpäivityksestä kulunut aika
+		*/
 		void update(float elapsedMS){
 			stage_common::Input& in = stage_common::Input::getSingleton();
 
+			//Suunta, johon liikutaan
 			glm::vec3 movement;
 
+			//Tarkistetaan mitä näppäimiä on painettu
 			if (in.getKeyDown(GLFW_KEY_W)) movement.z += CAMERASPEED * elapsedMS;
 			if (in.getKeyDown(GLFW_KEY_S)) movement.z -= CAMERASPEED  * elapsedMS;
 			if (in.getKeyDown(GLFW_KEY_A)) movement.x += CAMERASPEED  * elapsedMS;
 			if (in.getKeyDown(GLFW_KEY_D)) movement.x -= CAMERASPEED  * elapsedMS;
 			if (in.getKeyDown(GLFW_KEY_F)) movement.y += CAMERASPEED  * elapsedMS;
 			if (in.getKeyDown(GLFW_KEY_R)) movement.y -= CAMERASPEED  * elapsedMS;
-
+			//Siirretään isäntäoliota
 			tr->translate(movement);
-
+			//Suljetaan peli, jos painetaan escapea
 			if (in.getKeyDown(GLFW_KEY_ESCAPE)) SceneManager::getGlobalManager()->stop();
 		}
 
+		/** Hakee tämän komponentin komponenttitunnuksen
+		@returns	Komponentin tunnus
+		*/
 		int id(){
 			return CAMERACONTROLCOMPONENT_ID;
 		}
 	private:
+		/** Isäntäolion sijainnista kirjaa pitävä olio
+		*/
 		Transform* tr;
 	};
 }
