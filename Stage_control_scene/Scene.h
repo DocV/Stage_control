@@ -19,7 +19,6 @@ namespace stage_control{
 		*/
 		~Scene();
 
-
 		/** Suorittaa pelisilmukan päivitysvaiheessa tapahtuvan laskennan
 		@param elapsedMS	Edellisestä pelisilmukan suorituskerrasta kulunut aika
 		*/

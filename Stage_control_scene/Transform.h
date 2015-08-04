@@ -43,10 +43,16 @@ namespace stage_control{
 			transform = tr;
 		}
 
+		/** Hakee peliolion sijaintivektorin 3D-maailmassa
+		@returns	Vektori, joka kuvaa tämän komponentin isäntäolion xyz-koordinaatteja pelimaailmassa
+		*/
 		glm::vec3 getPosition(){
 			return glm::vec3(transform[3]);
 		}
 
+		/** Siirtää pelioliota haluttuun suuntaan
+		@param direction	Vektori, joka ilmoittaa miten kauas ja mihin suuntaan pelioliota halutaan siirtää
+		*/
 		void translate(glm::vec3 direction){
 			transform = glm::translate(transform, direction);
 		}

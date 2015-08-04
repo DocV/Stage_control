@@ -15,6 +15,9 @@ namespace stage_control{
 		*/
 		virtual void setActiveScene(Scene* scene) = 0;
 
+		/** Palauttaa pelimoottorin käynnistämisestä kuluneiden ruudunpäivitysten määrän
+		@returns	Pelimoottorin käynnistämisestä kuluneiden ruudunpäivitysten määrä
+		*/
 		virtual unsigned int getCurrentFrame() = 0;
 
 		/** Hakee osoittimen globaaliin alueita hallinnoivaan olioon
