@@ -23,9 +23,9 @@ namespace stage_control{
 		*/
 		void render();
 
-		/** Hakee viitteen tähän olioon liitettyyn tiettyä tyyppiä olevaan komponenttiin
+		/** Hakee viitteen ensimmäiseen tähän olioon liitettyyn tiettyä tyyppiä olevaan komponenttiin
 		@param id	Haettavan komponentin tyypin tunnusluku
-		@returns	Osoitin haettavaan komponentiin
+		@returns	Osoitin haettavaan komponentiin tai nullptr, jos haluttua komponenttia ei ole
 		*/
 		Component* getComponentByID(int id);
 

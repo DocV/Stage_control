@@ -71,6 +71,7 @@ void Gameloop::loop() {
 	std::cout << "Total runtime: " << loopTimer.totalTime() << std::endl;
 	std::cout << "Total frames: " << loopTimer.totalTicks() << std::endl;
 	std::cout << "Average loop time: " << loopTimer.averageTime() << std::endl;
+	std::cout << "Average fps: " << std::to_string(1000 / loopTimer.averageTime()) << std::endl;
 	std::cout << "Average update time: " << upTimer.averageTime() << std::endl;
 	std::cout << "Average render time: " << rendTimer.averageTime() << std::endl;
 	std::cout << "Average maintenance time: " << maintTimer.averageTime() << std::endl;
