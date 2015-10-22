@@ -25,7 +25,7 @@ int _tmain(int argc, _TCHAR* argv[])
 	int SCALE = 10;
 	//Pallojen määrä
 	int SPHERES = 5;
-	double WAIT = 0.0;
+	int WAIT = 0;
 	std::string configfile;
 	std::ifstream configStream("config.ini", std::ios::in);
 
@@ -69,8 +69,8 @@ int _tmain(int argc, _TCHAR* argv[])
 			//Parametri WAIT
 			else if (start == "WAIT"){
 				try{
-					WAIT = std::stod(end);
-					if (WAIT < 0.0) WAIT = 0.0;
+					WAIT = std::stoi(end);
+					if (WAIT < 0) WAIT = 0;
 				}
 				catch (...){
 					std::cerr << "Error parsing configuration parameter WAIT" << std::endl;
