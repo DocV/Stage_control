@@ -1,7 +1,4 @@
-﻿// Stage_control_demo.cpp : Defines the entry point for the console application.
-//
-
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <ModelComponent.h>
 #include <Gameloop.h>
 #include <Component.h>
@@ -17,7 +14,6 @@
 #include <fstream>
 
 using namespace stage_control;
-
 
 int _tmain(int argc, _TCHAR* argv[])
 {

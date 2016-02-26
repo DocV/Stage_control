@@ -11,7 +11,6 @@ CameraComponent::CameraComponent(GameObject* owner) : Component(owner){
 		abort();
 	}
 }
-
 CameraComponent::CameraComponent(GameObject* owner, glm::mat4& initialProjection, glm::mat4& initialView) : Component(owner), cam(initialProjection, initialView){
 	position = (Transform*)owner->getComponentByID(TRANSFORM_ID);
 	if (position == nullptr){
@@ -19,7 +18,6 @@ CameraComponent::CameraComponent(GameObject* owner, glm::mat4& initialProjection
 		abort();
 	}
 }
-
 void CameraComponent::render(){
 	cam.setViewMatrix(position->getMatrix());
 }

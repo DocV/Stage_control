@@ -10,7 +10,6 @@
 using namespace stage_control;
 
 Gameloop::Gameloop(std::string& windowName, int xres, int yres) : activeScene(nullptr){
-
 	gc = new stage_common::GraphicsController(windowName, xres, yres);
 	if (globalLogger != nullptr){
 		globalLogger->LogError("Error: global logger already set. Aborting.");
@@ -23,13 +22,11 @@ Gameloop::Gameloop(std::string& windowName, int xres, int yres) : activeScene(nu
 	}
 	SceneManager::setGlobalManager(this);
 }
-
 Gameloop::~Gameloop(){
 	if (SceneManager::getGlobalManager() == this) SceneManager::setGlobalManager(NULL);
 	delete gc;
 	delete globalLogger;
 }
-
 float Gameloop::getTimescale() {
 	return timescale;
 }
@@ -37,9 +34,12 @@ void Gameloop::setTimescale(float ts) {
 	timescale = ts;
 }
 void Gameloop::start() {
-
 	if (activeScene != nullptr && cam !=nullptr)
 		loop();
+	else{
+		std::cout << "Active scene or camera not defined, shutting down" << std::endl;
+		std::abort();
+	}
 }
 void Gameloop::stop(){
 	abort = true;
@@ -48,7 +48,6 @@ void Gameloop::loop() {
 	stage_common::Timer upTimer;
 	stage_common::Timer rendTimer;
 	stage_common::Timer maintTimer;
-
 	while (!abort) {
 		loopTimer.start();
 		//Päivitysvaihe
@@ -67,7 +66,6 @@ void Gameloop::loop() {
 		maintTimer.stop();
 		loopTimer.stop();
 	}
-
 	std::cout << "Total runtime: " << loopTimer.totalTime() << std::endl;
 	std::cout << "Total frames: " << loopTimer.totalTicks() << std::endl;
 	std::cout << "Average loop time: " << loopTimer.averageTime() << std::endl;
@@ -80,15 +78,12 @@ void Gameloop::loop() {
 void Gameloop::shutdown(){
 	std::cout << "shutting down";
 }
-
 void Gameloop::setActiveScene(Scene* scene){
 	activeScene = scene;
 }
-
 void Gameloop::setActiveCamera(CameraComponent* cam){
 	this->cam = (cam->getRawCamera());
 }
-
 unsigned int Gameloop::getCurrentFrame(){
 	return loopTimer.totalTicks();
 }

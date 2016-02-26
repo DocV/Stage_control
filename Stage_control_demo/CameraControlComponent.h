@@ -1,11 +1,11 @@
 ﻿#pragma once
 
 #include "stdafx.h"
-
 #ifndef CAMERACONTROLCOMPONENT_H
 #define CAMERACONTROLCOMPONENT_H
 
 #define CAMERACONTROLCOMPONENT_ID 6
+/** Kameran liikenopeus*/
 #define CAMERASPEED 0.025f
 
 #include <Component.h>
@@ -17,8 +17,7 @@
 
 namespace stage_control{
 	/** Peliolioon liitettävä komponentti, joka mahdollistaa peliolion liikuttamisen näppäimistöllä.
-	Suunniteltu kameran liikuttamiseen
-	*/
+	Suunniteltu kameran liikuttamista varten.*/
 	class CameraControlComponent : public Component{
 	public:
 		/** Luo uuden ohjauskomponentin
@@ -35,18 +34,14 @@ namespace stage_control{
 			in.registerKey(GLFW_KEY_R);
 			in.registerKey(GLFW_KEY_F);
 			in.registerKey(GLFW_KEY_ESCAPE);
-
 		}
-
 		/** Päivittää komponentin tilan
 		@param elapsedMS	Edellisestä ruudunpäivityksestä kulunut aika
 		*/
 		void update(float elapsedMS){
 			stage_common::Input& in = stage_common::Input::getSingleton();
-
 			//Suunta, johon liikutaan
 			glm::vec3 movement;
-
 			//Tarkistetaan mitä näppäimiä on painettu
 			if (in.getKeyDown(GLFW_KEY_W)) movement.z += CAMERASPEED * elapsedMS;
 			if (in.getKeyDown(GLFW_KEY_S)) movement.z -= CAMERASPEED  * elapsedMS;
@@ -59,7 +54,6 @@ namespace stage_control{
 			//Suljetaan peli, jos painetaan escapea
 			if (in.getKeyDown(GLFW_KEY_ESCAPE)) SceneManager::getGlobalManager()->stop();
 		}
-
 		/** Hakee tämän komponentin komponenttitunnuksen
 		@returns	Komponentin tunnus
 		*/
@@ -67,10 +61,8 @@ namespace stage_control{
 			return CAMERACONTROLCOMPONENT_ID;
 		}
 	private:
-		/** Isäntäolion sijainnista kirjaa pitävä olio
-		*/
+		/** Isäntäolion sijaintia hallinnoiva olio*/
 		Transform* tr;
 	};
 }
-
 #endif

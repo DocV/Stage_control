@@ -13,87 +13,57 @@ namespace stage_control{
 	*/
 	class Gameloop : public SceneManager{
 	public:
-
 		/** Luo uuden pelisilmukan ja avaa ikkunan
 		@param windowName	Ikkunan nimi
 		@param xres			Ikkunan vaakaresoluutio
 		@param yres			Ikkunan pystyresoluutio
 		*/
 		Gameloop(std::string& windowName, int xres, int yres);
-
 		/** Hakee pelisilmukan aikaskaalan (pelin simulointinopeus)
 		@returns	Pelin aikaskaala
 		*/
 		float getTimescale();
-
 		/** Asettaa pelisilmukan aikaskaalan(pelin simulointinopeus)
 		@returns	Pelin aikaskaala
 		*/
 		void setTimescale(float ts);
-
-		/** Käynnistää pelisilmukan suorituksen
-		*/
+		/** Käynnistää pelisilmukan suorituksen*/
 		void start();
-
-		/** Pysäyttää pelisilmukan suorituksen
-		*/
+		/** Pysäyttää pelisilmukan suorituksen. Kutsuttava ennen pelisilmukan tuhoamista.*/
 		void stop();
-
-		/** Määrittelee pelin aktiivisen pelialueen
+		/** Asettaa pelin aktiivisen pelialueen
 		@param scene	Aktiivinen pelialue
 		*/
 		void setActiveScene(Scene* scene);
-
-		/** Määrittelee pelin aktiivisen kameran
+		/** Asettaa pelin aktiivisen kameran
 		@param scene	Aktiivinen kamera
 		*/
 		void setActiveCamera(CameraComponent* cam);
-
 		/** Palauttaa pelimoottorin käynnistämisestä kuluneiden ruudunpäivitysten määrän
 		@returns	Pelimoottorin käynnistämisestä kuluneiden ruudunpäivitysten määrä
 		*/
 		unsigned int getCurrentFrame();
-
-		/** Tuhoaa pelisilmukkaolion
-		*/
+		/** Tuhoaa pelisilmukkaolion. Kutsu ensin stop-metodia, jotta pelisilmukka voidaan tuhota turvallisesti.*/
 		~Gameloop();
 	private:
-		/** Aktiivinen pelialue, eli se pelialue, jonka tilaa päivitetään ja joka piirretöön ruudulle
-		*/
+		/** Aktiivinen pelialue, eli se pelialue, jonka tilaa päivitetään ja joka piirretään ruudulle*/
 		Scene* activeScene;
-
-		/** Pelin grafiikkamoottoria hallinnoiva olio
-		*/
+		/** Pelin grafiikkamoottoria hallinnoiva olio*/
 		stage_common::GraphicsController* gc;
-
-		/** Pelin aktiivinen kamera, eli se kamera, jonka kuvakulmasta pelimaailma näytetään
-		*/
+		/** Pelin aktiivinen kamera, eli se kamera, jonka kuvakulmasta pelimaailma näytetään*/
 		stage_common::Camera* cam;
-
-		/** Pelisilmukan suoritusaikaa mittaava ajastin
-		*/
+		/** Pelisilmukan suoritusaikaa mittaava ajastin*/
 		stage_common::Timer loopTimer;
-
-		/** Lukitaanko hiiri keskelle kuvaruutua?
-		*/
+		/** Lukitaanko hiiri keskelle kuvaruutua?*/
 		bool resetMouse = false;
-
-		/** Pelin aikaskaala, eli pelisimulaation suoritusnopeus
-		*/
+		/** Pelin aikaskaala, eli pelisimulaation suoritusnopeus*/
 		float timescale = 1;
-
-		/** Ilmoittaa, pitääko pelisilmukan suoritus pysäyttää nykyisen silmukan jälkeen
-		*/
+		/** Ilmoittaa, pitääko pelisilmukan suoritus pysäyttää nykyisen silmukan jälkeen*/
 		bool abort = false;
-
-		/** Suorittaa pelisilmukan
-		*/
+		/** Suorittaa pelisilmukkaa, kunnes pysäytysmetodia kutsutaan*/
 		void loop();
-
-		/** Viimeistelee pelisilmukan suorituksen lopettamisen
-		*/
+		/** Viimeistelee pelisilmukan suorituksen lopettamisen ja varmistaa, että pelisilmukka voidaan tuhota turvallisesti*/
 		void shutdown();
 	};
 }
-
 #endif

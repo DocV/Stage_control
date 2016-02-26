@@ -8,7 +8,6 @@ ModelComponent::ModelComponent(GameObject* owner, stage_common::Model* mod) :
 	position = (Transform*)owner->getComponentByID(TRANSFORM_ID);
 	if (position == nullptr) abort();
 }
-
 void ModelComponent::render(){
 	stage_common::GraphicsController::getGlobalController()->queue(mod, position->getMatrix());
 }

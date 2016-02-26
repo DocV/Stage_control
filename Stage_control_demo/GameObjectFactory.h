@@ -13,8 +13,7 @@
 #include "Waiter.h"
 
 namespace stage_control{
-	/** Luokka, jota käytetään demo-ohjelman peliolioiden luomiseen
-	*/
+	/** Luokka, jota käytetään demo-ohjelman peliolioiden luomiseen*/
 	class GameObjectFactory{
 	public:
 		/** Luo satunnaiseen paikkaan pallon, joka liikkuu satunnaiseen suuntaan
@@ -38,11 +37,10 @@ namespace stage_control{
 			glm::vec3 velocity(randomFloat(-0.01f, 0.01f), randomFloat(-0.01f, 0.01f), randomFloat(-0.01f, 0.01f));
 			//Luodaan pelioliolle fysiikkakomponentti
 			PhysicsComponent* pc = new PhysicsComponent(&obj, 1.0f, velocity, 1.0f);
-
+			//Luodaan tarvittaessa Waiter-komponentti
 			if (waitLimit > 0) Waiter* w = new Waiter(&obj, waitLimit);
 			return obj;
 		}
-
 		/** Luo pelimaailmaan seinän eli litteän, staattisen törmäyspinnan
 		@param sc			Pelialue, johon seinä luodaan
 		@param transform	Seinän keskipisteen 3D-sijainti
@@ -61,18 +59,12 @@ namespace stage_control{
 			return obj;
 		}
 	private:
-		/** Peliolioiden käyttämä sävytinohjelma
-		*/
+		/** Demo-ohjelman peliolioiden käyttämä sävytinohjelma*/
 		stage_common::SimpleShader ss;
-
-		/** Pallon 3D-malli
-		*/
+		/** Pallon 3D-malli	*/
 		stage_common::Model mod_sphere;
-
-		/** Seinän 3D-malli
-		*/
+		/** Seinän 3D-malli	*/
 		stage_common::Model mod_plane;
-
 		/**Hakee viitteen globaaliin singleton-olioon, joka luo 3D-mallit ja niiden sävytinohjelman sekä pitää ne muistissa
 		@returns	Viite singleton-olioon
 		*/
@@ -81,7 +73,6 @@ namespace stage_control{
 			static GameObjectFactory gof;
 			return gof;
 		}
-
 		/**Arpoo liukuluvun kahden liukuluvun väliltä
 		@param start	Arvottavan luvun alaraja
 		@param end		Arvottavan luvun yläraja
@@ -91,13 +82,10 @@ namespace stage_control{
 			float random = ((float)rand()) / (float)RAND_MAX;
 			return start + (end - start) * random;
 		}
-
-		/** Luo uuden GameObjectFactory-olion, eli käytännössä lataa muistiin peliolioiden luomisessa tarvittavat resurssit
-		*/
+		/** Luo uuden GameObjectFactory-olion, eli käytännössä lataa muistiin peliolioiden luomisessa tarvittavat resurssit	*/
 		GameObjectFactory() : mod_sphere(generate_sphere_vertices(), generate_sphere_colors(), &ss),
 			mod_plane(generate_plane_vertices(), generate_plane_colors(), &ss){
 		}
 	};
 }
-
 #endif

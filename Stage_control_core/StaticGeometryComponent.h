@@ -9,11 +9,9 @@
 
 namespace stage_control{
 	/** Pelioliokomponentti, joka mallintaa staattista, liikkumatonta törmäyshahmoa, kuten pelimaailman maastoa
-	tai seiniä.
-	*/
+	tai seiniä.*/
 	class StaticGeometryComponent : public Component, public EventHandler{
 	public:
-
 		/** Luo uuden staattisen törmäyshahmon, joka käyttää pallotörmäyshahmoa
 		@param owner	Komponentin omistava peliolio
 		@param radius	Törmäyshahmon säde
@@ -22,24 +20,21 @@ namespace stage_control{
 			setup(owner);
 			collider = new stage_common::SphereCollider(radius, transform->getPosition());
 		}
-
 		/** Luo uuden staattisen törmäyshahmon, joka käyttää AABB-törmäyshahmoa
 		@param owner	Komponentin omistava peliolio
-		@param radius	Törmäyshahmon säde
+		@param radius	Törmäyshahmon koko
 		*/
 		StaticGeometryComponent(GameObject* owner, glm::vec3 size) : Component(owner){
 			setup(owner);
 			collider = new stage_common::AABBCollider(size, transform->getPosition());
 		}
-
 		/** Päivittää komponentin tilan
 		@param elapsedMS	Edellisestä ruudunpäivityksestä kulunut aika
 		*/
 		void update(float elapsedMS){
-			//Päivitetään sijainti, sillä jokin muu komponentti on voinut muuttaa sitä
+			//Haetaan uudelleen sijainti, sillä jokin muu komponentti on voinut muuttaa sitä
 			collider->center = transform->getPosition();
 		}
-
 		/** Käsittelee olion vastaanottamat tapahtumaviestit
 		@param ev	Käsiteltävä viesti
 		*/
@@ -55,29 +50,23 @@ namespace stage_control{
 			//Pyydetään toista kappaletta päivittämään tilansa
 			coll.sender.processCollision(*collider, otherV);
 		}
-
 		/** Palauttaa staattisen törmäyshahmokomponentin komponenttitunnuksen
 		@returns	Komponentin komponenttitunnus
 		*/
 		int id(){
 			return STATICGEOMETRYCOMPONENT_ID;
 		}
-
-		/** Tuhoaa staattisen törmäyshahmokomponentin
-		*/
+		/** Tuhoaa staattisen törmäyshahmokomponentin*/
 		~StaticGeometryComponent(){
 			delete collider;
-			//TODO delete event channel entry
 		}
 	private:
 		/** Komponentin törmäyshahmo
 		*/
-		stage_common::Collider* collider;
-		
+		stage_common::Collider* collider;		
 		/** Osoitin tämän komponentin omistajaolion pelimaailmasijaintia ylläpitävään komponenttiin
 		*/
 		Transform* transform;
-
 		/** Kaikille konstruktoreille yhteinen apumetodi, joka alustaa peliolion tilan
 		@param owner	Tämän komponentin omistava peliolio
 		*/
@@ -87,5 +76,4 @@ namespace stage_control{
 		}
 	};
 }
-
 #endif
