@@ -9,24 +9,20 @@ void GameObject::update(float elapsedMS){
 		(*it)->update(elapsedMS);
 	}
 }
-
 void GameObject::render(){
 	for (std::list<Component*>::iterator it = components.begin(); it != components.end(); it++){
 		(*it)->render();
 	}
 }
-
 Component* GameObject::getComponentByID(int id){
 	for (std::list<Component*>::iterator it = components.begin(); it != components.end(); it++){
 		if ((*it)->id() == id) return *it;
 	}
 	return nullptr;
 }
-
 void GameObject::addComponent(Component* comp){
 	components.push_back(comp);
 }
-
 GameObject::~GameObject(){
 	for (std::list<Component*>::iterator it = components.begin(); it != components.end(); it++){
 		delete *it;

@@ -8,20 +8,17 @@ void Scene::update(float elapsedMS){
 		(*it)->update(elapsedMS);
 	}
 }
-
 void Scene::render(){
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++){
 		(*it)->render();
 	}
 }
-
 GameObject& Scene::createObject(){
 	GameObject* newObject = new GameObject(serial);
 	serial++;
 	objects.push_back(newObject);
 	return *newObject;
 }
-
 Scene::~Scene(){
 	for (std::list<GameObject*>::iterator it = objects.begin(); it != objects.end(); it++){
 		delete *it;

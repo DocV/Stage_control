@@ -8,23 +8,19 @@
 #include <list>
 
 namespace stage_control{
-	/** Tapahtumajärjestelmän viestejä välittävä luokka
-	*/
+	/** Tapahtumajärjestelmän viestejä välittävä luokka*/
 	class EventChannel{
 	public:
-		/** Luo uuden tapahtumakanavan
-		*/
+		/** Luo uuden tapahtumakanavan*/
 		EventChannel(){}
 		EventChannel(const EventChannel& other) = delete;
 		EventChannel& operator= (const EventChannel& other) = delete;
-
 		/** Rekisteröi olion kanavan viestien vastaanottajaksi
 		@param recipient	Olio, jolle halutaan välittää kanavan viestit
 		*/
 		void registerRecipient(EventHandler* recipient){
 			recipients.push_back(recipient);
 		}
-
 		/** Lähettää viestin kaikille kanavaan rekisteröityneille olioille
 		@param e	Lähetettävä viesti
 		*/
@@ -33,7 +29,6 @@ namespace stage_control{
 				(*i)->handleEvent(e);
 			}
 		}
-
 		/** Lähettää viestin kaikille kanavaan rekisteröityneille olioille paitsi viestin lähettäjälle
 		@param e		Lähetettävä viesti
 		@param sender	Viestin lähettäjän osoite
@@ -44,11 +39,8 @@ namespace stage_control{
 			}
 		}
 	private:
-		/** Lista tämän kanavan viestien vastaanottajiksi rekisteröidyistä olioista
-		*/
+		/** Lista tämän kanavan viestien vastaanottajiksi rekisteröidyistä olioista*/
 		std::list<EventHandler*> recipients;
 	};
-
 }
-
 #endif
